@@ -9,10 +9,72 @@
     <h1>Hello World!</h1>
     <h3>Tutorial Assignment: 1_2_basic_html </h3>
     <table>
-      <!-- Add your table data here -->
+      <colgroup>
+        <col>
+        <col>
+        <col>
+      </colgroup>
+      <th>Class Schedule</th>
+      <tr>
+        <td>Classes</td>
+        <td>Day</td>
+        <td>Time</td>
+      </tr>
+      <tr>
+        <td class = "Course">DATA 73200</td>
+        <td class = 'day'>Wednesday</td>
+        <td class = "time">6:30 - 8:30</td>
+      </tr>
+      <tr>
+        <td class = "Course">DATA 71000</td>
+        <td class = 'day'>Thursday</td>
+        <td class = "time">4:30 - 6:30</td>
+      </tr>
     </table>
-    <svg>
-      <!-- Add your rectangles in here -->
+    <table>
+      <th>Work Schedule</th>
+      <tr>
+        <td>Day</td>
+        <td>Time</td>
+        <td>Notes</td>
+      </tr>
+      <tr>
+        <td class = "day">Monday</td>
+        <td class = "time" > 9:00AM - 5:00PM</td>
+      </tr>
+      <tr>
+        <td class = "day">Tuesday</td>
+        <td class = "time" > 9:00AM - 5:00PM</td>
+      </tr>
+      <tr>
+        <td class = "day">Wednesday</td>
+        <td class = "time" > 9:00AM - 5:00PM</td>
+      </tr>
+      <tr>
+        <td class = "day">Thursday</td>
+        <td class = "time" > 9:00AM - 5:00PM</td>
+      </tr>
+      <tr>
+        <td class = "day">Friday</td>
+        <td class = "time" > 9:00AM - 5:00PM</td>
+      </tr>
+    </table>
+    <svg viewBox ="20 20">
+      <path d="M 10,30
+      A 20,20 0,0,1 50,30
+      A 20,20 0,0,1 90,30
+      Q 90,60 50,90
+      Q 10,60 10,30 z"/>
     </svg>
+    <button class = "Counter" type ="button">
+      Click this Button
+    </button>
   </body>
+  <img class="fit-picture"
+     src="data:image/png;base64,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"
+     style = "object-fit: cover;
+     width: 100px;
+     height: 150px;
+     board: solid 1px#CCC" 
+     alt="Robot From Internet">
 </html>
