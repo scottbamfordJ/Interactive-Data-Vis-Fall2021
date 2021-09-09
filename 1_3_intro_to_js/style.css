@@ -22,6 +22,12 @@ section {
   padding: 2em 0;
 }
 
+td {
+  border: 1px solid black;
+  height: 50px;
+  width: 50px
+}
+
 #counting_clicks {
   background-color: red;
   width: 500px;
@@ -34,4 +40,77 @@ section {
 #reset{
   margin-left: 50px;
   position:relative
+}
+
+#TopLeft {
+  background-color: white;
+  width: 100px;
+  height:100px;
+  border-radius: 50;
+  color: black;
+  font-size: 40px
+}
+#TopMiddle {
+  background-color: white;
+  width: 100px;
+  height:100px;
+  border-radius: 50;
+  color: black;
+  font-size: 40px
+}
+#TopRight {
+  background-color: white;
+  width: 100px;
+  height:100px;
+  border-radius: 50;
+  color: black;
+  font-size: 40px
+}
+#MiddleLeft {
+  background-color: white;
+  width: 100px;
+  height:100px;
+  border-radius: 50;
+  color: black;
+  font-size: 40px
+}
+#MidleMidle {
+  background-color: white;
+  width: 100px;
+  height:100px;
+  border-radius: 50;
+  color: black;
+  font-size: 40px
+}
+#MidleRight{
+  background-color: white;
+  width: 100px;
+  height:100px;
+  border-radius: 50;
+  color: black;
+  font-size: 40px
+}
+#BottomLeft {
+  background-color: white;
+  width: 100px;
+  height:100px;
+  border-radius: 50;
+  color: black;
+  font-size: 40px
+}
+#BottomMiddle {
+  background-color: white;
+  width: 100px;
+  height:100px;
+  border-radius: 50;
+  color: black;
+  font-size: 40px
+}
+#BottomRight{
+  background-color: white;
+  width: 100px;
+  height:100px;
+  border-radius: 50;
+  color: black;
+  font-size: 40px
 }
