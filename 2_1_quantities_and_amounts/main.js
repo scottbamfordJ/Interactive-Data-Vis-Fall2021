@@ -6,17 +6,20 @@
 d3.csv('CountryData.csv', d3.autoType)
   .then(data => {
     console.log(data)
+    console.log(data.columns)
+
+    
 
     const table = d3.select("#container")
       .append("table")
-
+    
     
     const rows = table
       .selectAll(".row")
       .data(data)
       .join("tr")
       .attr("class", "row")
-
+      
     const cells = rows
       .selectAll(".cell")
       .data(d => Object.values(d))

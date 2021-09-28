@@ -1,4 +1,5 @@
 Name_Of_Region,Min_Year,Max_Year,Number_Of_Attacks,Number of Deaths,Average Deaths,Mode
+Name_Of_Region,Min_Year,Max_Year,Number_Of_Attacks,Number of Deaths,Average Deaths,Mode
 Central America & Caribbean,1970,2018,8036,28717.0,3.5735440517670485,0.0
 Southeast Asia,1970,2018,13068,16257.0,1.2440312213039486,0.0
 North America,1970,2018,3486,5017.0,1.4391853126792886,0.0
