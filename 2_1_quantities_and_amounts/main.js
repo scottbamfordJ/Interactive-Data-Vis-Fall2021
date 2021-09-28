@@ -3,9 +3,28 @@
 // const height = ;
 
 /* LOAD DATA */
-d3.csv('../[PATH_TO_YOUR_DATA]', d3.autoType)
+d3.csv('CountryData.csv', d3.autoType)
   .then(data => {
-    console.log("data", data)
+    console.log(data)
+
+    const table = d3.select("#container")
+      .append("table")
+
+    
+    const rows = table
+      .selectAll(".row")
+      .data(data)
+      .join("tr")
+      .attr("class", "row")
+
+    const cells = rows
+      .selectAll(".cell")
+      .data(d => Object.values(d))
+      .join("td")
+      .text(d => d)
+
+
+
 
     /* SCALES */
     /** This is where you should define your scales from data to pixel space */
