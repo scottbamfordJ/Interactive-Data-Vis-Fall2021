@@ -1,14 +1,13 @@
-Name_Of_Region,Min_Year,Max_Year,Number_Of_Attacks,Number of Deaths,Average Deaths,Mode
-Name_Of_Region,Min_Year,Max_Year,Number_Of_Attacks,Number of Deaths,Average Deaths,Mode
-Central America & Caribbean,1970,2018,8036,28717.0,3.5735440517670485,0.0
-Southeast Asia,1970,2018,13068,16257.0,1.2440312213039486,0.0
-North America,1970,2018,3486,5017.0,1.4391853126792886,0.0
-South America,1970,2018,17612,29052.0,1.6495571201453554,0.0
-Western Europe,1970,2018,15931,6643.0,0.4169857510514092,0.0
-Sub-Saharan Africa,1970,2018,17797,85020.0,4.777209642074507,0.0
-Middle East & North Africa,1970,2018,50646,142214.0,2.8080006318366704,0.0
-East Asia,1970,2018,769,1154.0,1.5006501950585176,0.0
-Eastern Europe,1970,2018,5050,7457.0,1.4766336633663366,0.0
-Australasia & Oceania,1970,2018,298,152.0,0.5100671140939598,0.0
-South Asia,1970,2018,47174,112263.0,2.3797642769322085,0.0
-Central Asia,1991,2018,567,1035.0,1.8253968253968254,0.0
+Name_Of_Region,Average_Deaths
+Central America & Caribbean,3.573544052
+Southeast Asia,1.244031221
+North America,1.439185313
+South America,1.64955712
+Western Europe,0.416985751
+Sub-Saharan Africa,4.777209642
+Middle East & North Africa,2.808000632
+East Asia,1.500650195
+Eastern Europe,1.476633663
+Australasia & Oceania,0.510067114
+South Asia,2.379764277
+Central Asia,1.825396825
