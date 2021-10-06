@@ -73,7 +73,6 @@ d3.csv("CountryData.csv", )
   .then(data =>  {
 
   var x = d3.scaleLinear()
-    //.domain(d3.extent(data, d => d.Average_Deaths))
     .domain(d3.extent(data, d => d.Average_Deaths))
     .range([margins.left, width - margins.right - margins.left]);
   svg.append("g")
