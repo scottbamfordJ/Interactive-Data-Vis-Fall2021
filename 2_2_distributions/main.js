@@ -1,7 +1,7 @@
 /* CONSTANTS AND GLOBALS */
 const width = 600,
     height = 600,
-    margin = 50,
+    margin = 100,
     radius = 5;
 /* LOAD DATA */
 d3.csv("CountryData.csv", d3.autoType)
@@ -62,8 +62,23 @@ d3.csv("CountryData.csv", d3.autoType)
       .attr("class", "x-axis")
       .style("transform", `translate(0px,${height - margin}px)`)
       .call(d3.axisBottom(xScale))
-    svg.append("g")
-      .attr("class", "y-axis")
-      .style("transform", `translate(${margin}px,0px)`)
-      .call(d3.axisLeft(yScale))
+      svg.append("g")
+        .attr("class", "y-axis")
+        .style("transform", `translate(${margin}px,0px)`)
+        .call(d3.axisLeft(yScale))
+      svg.append("text")
+        .attr("class", "x label") 
+        .attr("text-anchor", "middle") 
+        .attr("x", 300)
+        .attr("y", height - 50)
+        .text("Number of Terrorist Attack Deaths")
+      svg.append("text")
+        .attr("class", "y label") 
+        .attr("text-anchor", "middle") 
+        .attr("x", -width /2)
+        .attr("y", 20) 
+        .attr("dy", ".75em")
+        .attr('transform', 'rotate(-90)')
+        .text("Number of Terrorist Attacks ")
+;
   });
