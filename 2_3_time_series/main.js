@@ -66,7 +66,9 @@ d3.csv('Country_Data_Year.csv', d => {
     .x(d => xScale(d.year))
     .y0(yScale(0))
     .y1(d => yScale(d.nkills))  
-    
+  const colorScale = d3.scaleOrdinal()
+    .domain(data.map(d => d.country_txt))
+    .range(d3.schemeSet3);
     
   const countriesMap = d3.group(data, d => d.country_txt)
   console.log('countriesMap:>> ', countriesMap);
@@ -91,6 +93,6 @@ d3.csv('Country_Data_Year.csv', d => {
     .join("path")
     .attr("class", ".area")
     .attr("stroke", "black")
-    .attr("fill", "blue")
+    .attr("fill", d => colorScale(d))
     .attr("d", d => AreaGen(d))
 });
