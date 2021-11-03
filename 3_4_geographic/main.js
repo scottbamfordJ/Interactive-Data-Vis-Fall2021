@@ -4,6 +4,10 @@
  const width = 1000,
     height = 800,
     margin = { top: 20, bottom: 50, left: 60, right: 40 };
+const width_1 = window.innerWidth * 0.7,
+    height_1 = window.innerHeight * 0.7,
+    margin_1 = { top: 20, bottom: 60, left: 60, right: 40 },
+    radius_1 = 5;
 
 let svg, 
     hoverBox,
@@ -23,9 +27,12 @@ let state = {
     geojson: [],
     terrorist_state_data: [],
     all_attacks: [],
-    selected_state: "Select A State"
+    selected_state: "Select A State",
+    bargraph: []
     };
-
+let bargraph = {
+    
+}
 /**
 * LOAD DATA
 * Using a Promise.all([]), we can load more than one dataset at a time
@@ -55,6 +62,7 @@ const attacksLookup = new Map(state.terrorist_state_data.map(d=> [
 ]))
 
 const statelookup = new Map(state.full_data.map(d=> [d['province'] , d['iyear']]))
+/* SVG AND CONTAINERS */ 
 
 console.log('statelookup :>>', statelookup);
 svg = d3.select("#container")
@@ -62,6 +70,7 @@ svg = d3.select("#container")
     .attr("width", width)
     .attr("height", height)
 hoverBox = d3.select("#hover-content")
+
 
 const projection = d3.geoAlbersUsa()
     .fitSize([width, height], state.geojson)
@@ -80,25 +89,46 @@ const usSates = svg.selectAll("path.state")
         // console.log(d)
         return colorScale(+attacksLookup.get(d.properties.NAME))
     })
+
+/* Click Access for the Data in the Map */
 const storage = state.full_data
-console.log(storage)
+
 usSates.on("click", (ev, d) => {
     state.click_state = d.properties.NAME
     state.click_info = storage.filter(function(d){
         return d.provstate == state.click_state
     });
-    console.log(state.click_state)
-    console.log(state.click_info)
+    state.bargraph = d3.rollup(state.click_info, v => v.length, d => d.gname)
+    state.bargraph.Attacks_Done = [...state.bargraph.values()]
+    state.bargraph.Organizations = [...state.bargraph.keys()]
+
+    xScale = d3.scaleBand()
+        .domain(state.bargraph.Organizations)
+        .range([0, width])
+        .paddingInner(0.2)
+
+    yScale = d3.scaleBand()
+        .domain([0, d3.max(state.bargraph, d => d.Attacks_Done)])
+        // console.log(d3.max(state.bargraph.X))
+        .range([height, 0])
+    xAxis = d3.axisBottom(xScale)
+      .tickSizeOuter(0)
+    yAxis = d3.axisLeft(yScale)
+      .tickSizeOuter(0)
+    draw2();
+   
+})
+/* 
+Making the BarGraph based upon Clicked information
+*/
+
+
+
+usSates.on("mousemove", (ev, d) => {
+    state.hover_state = d.properties.NAME
+    state.hover_attacks = attacksLookup.get(d.properties.NAME) 
     draw();
 })
-
-
-// usSates.on("mousemove", (ev, d) => {
-//     console.log(d)
-//     state.hover_state = d.properties.NAME
-//     state.hover_attacks = attacksLookup.get(d.properties.NAME) 
-//     draw();
-// })
 
 svg.on("mousemove", (ev) => {
     const [mx, my] = d3.pointer(ev)
@@ -108,48 +138,6 @@ svg.on("mousemove", (ev) => {
     state.longitude = projection.invert([mx, my])[1];
     draw()
 })
-// Drop Down Idea
-// const test2 = "California"
-// tests = [...new Set(state.full_data.map(d => d.provstate))]
-// console.log(tests)
-
-// const selectElement = d3.select("#dropdown")
-// let unique_outputs = [...new Set(state.full_data.map(d => d.provstate))]
-// xScale = d3.scaleLinear()
-//     .domain(d3.extent(state.data, d => d.ideologyScore2020))
-//     .range([20, width - 20])
-
-// yScale = d3.scaleLinear()
-//     .domain(d3.extent(state.data, d => d.envScore2020))
-//     .range([height - 20, 20])
-
-// xAxis = d3.axisBottom(xScale)
-// yAxis = d3.axisLeft(yScale)
-
-// console.log(unique_outputs)
-// selectElement
-//     .selectAll("options")
-//     .data(unique_outputs)
-//     .join("option")
-//     .attr("value", d => d)
-//     .text(d => d)
-// selectElement.on("change", event =>{
-//     state.selectedParty = event.target.value
-//     draw();
-// })
-// svg1 = d3.select("#bargraph")
-//     .append("svg")
-//     .attr("width", width)
-//     .attr("height", height)
-// xAxisGroup = svg1.append("g")
-//     .attr("class", 'xAxis')
-//     .attr("transform", `translate(${0}, ${height - 20})`) // move to the bottom
-//     .call(xAxis)
-
-//   yAxisGroup = svg.append("g")
-//     .attr("class", 'yAxis')
-//     .attr("transform", `translate(${20}, ${0})`) // align with left margin
-//     .call(yAxis)
  draw(); // calls the draw function
 }
 
@@ -165,8 +153,38 @@ function draw() {
             `<div>US State: ${state.hover_state}</div>
             <div>Number of Attacks: ${state.hover_attacks}</div>`
           )
-    
+        
 }   
+function draw2() {
+    console.log(state.bargraph)
+    console.log(state.bargraph.Organizations)
+    console.log(state.bargraph.Attacks_Done)
+    console.log(d3.max(state.bargraph.Attacks_Done))
+    console.log(xScale.bandwidth())
+    const bargraph = d3.select("#bargraph")
+        .append("svg")
+        .attr("width", width_1)
+        .attr("height", height_1) 
+        .style("background-color", "pink")
+    bargraph.select("rect")
+        .data(state.bargraph)
+        .join("rect")
+        .attr("x", d => xScale(d.Organizations))
+        .attr("y", d => yScale(d.Attacks_Done))
+        .attr("width", xScale.bandwidth())
+        .attr("height", d => height - yScale(d.Attacks_Done) )
+        .attr("fill", "blue")
+    bargraph.append('g')
+        .attr('class', 'x-axis')
+        .attr('transform', `translate(0,${ height_1 - margin_1.bottom })`)
+        .attr("dx", "1em")
+        .call( xAxis )
+    bargraph.append('g')
+        .attr('class', 'y-axis')
+        .attr('transform', `translate(${ margin_1.left }, 0)`)
+        .call( yAxis )
+    /* needs an Update clauser to prevent mulitple's from being used */
+}
 
 
 
