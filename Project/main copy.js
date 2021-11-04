@@ -99,26 +99,23 @@ usSates.on("click", (ev, d) => {
         return d.provstate == state.click_state
     });
     state.bargraph = d3.rollup(state.click_info, v => v.length, d => d.gname)
-    state.bargraph.Attacks_Done = Array.from(state.bargraph.values())
-    state.bargraph.Organizations = Array.from(state.bargraph.keys())
-
-    /* Making Scales and Axis */
-
-    xScale = d3.scaleBand ()
-        .domain(state.bargraph.Organizations)
-        .range([margin_1, width_1 - margin_1])
-        .padding(0.1)
-    yScale = d3.scaleBand()
-        .domain([0, d3.max(state.bargraph, d => d.Attacks_Done)])
-        // console.log(d3.max(state.bargraph.X))
-        .range([height_1 - margin_1, margin_1])
+    state.bargraph.Attacks_Done = [...state.bargraph.values()]
+    state.bargraph.Organizations = [...state.bargraph.keys()]
+    // xScale = d3.scaleBand ()
+    //     .domain(state.bargraph.Organizations)
+    //     .range([margin_1, width_1 - margin_1])
+    //     .padding(0.1)
+    // yScale = d3.scaleBand()
+    //     .domain([0, d3.max(state.bargraph, d => d.Attacks_Done)])
+    //     // console.log(d3.max(state.bargraph.X))
+    //     .range([height_1 - margin_1, margin_1])
         
-    xAxis = d3.axisBottom(xScale)
-      // .tickSizeOuter(10)
-      .scale(xScale)
-    yAxis = d3.axisLeft(yScale)
-      // .ticks(10, ",f")
-      .scale(yScale)
+    // xAxis = d3.axisBottom(xScale)
+    // //   .tickSizeOuter(10)
+    //   .scale(xScale)
+    // yAxis = d3.axisLeft(yScale)
+    //   .ticks(10, ",f")
+    //   .scale(yScale)
     draw2();
    
 })
@@ -159,57 +156,47 @@ function draw() {
           )
         
 }   
-function draw2() {
-    console.log(state.bargraph)
-    console.log(state.bargraph.Organizations)
-    console.log(state.bargraph.Attacks_Done)
-    console.log(d3.max(state.bargraph.Attacks_Done))
-    console.log(xScale.bandwidth())
-    const bargraph = d3.select("#bargraph")
-        .append("svg")
-        .attr("width", width_1)
-        .attr("height", height_1) 
-        .style("background-color", "pink")
-    bargraph.selectAll(".bar")
-        .data(state.bargraph)
-        .enter().append("rect")
-        .attr("class", "bar")
-        .attr("x", d => {
-          console.log(d[0])
-          return xScale(d[0])
-        } )
-        .attr("y", d => yScale(d.Attacks_Done))
-        .attr("width", xScale.bandwidth())
-        .attr("height", d => (height_1) - yScale(d.Attacks_Done) )
-        .attr("fill", "blue")
-    bargraph.append('g')
-        .call( xAxis )
-        .attr('class', 'x-axis')
-        .style("transform", `translate(0px,${height_1 - margin_1}px)`)
-        // .attr("dx", "2em")
+
+
+
+
+
+
+
+}
+// function draw2() {
+//     console.log(state.bargraph)
+//     console.log(state.bargraph.Organizations)
+//     console.log(state.bargraph.Attacks_Done)
+//     console.log(d3.max(state.bargraph.Attacks_Done))
+//     console.log(xScale.bandwidth())
+//     const bargraph = d3.select("#bargraph")
+//         .append("svg")
+//         .attr("width", width_1)
+//         .attr("height", height_1) 
+//         .style("background-color", "pink")
+//     bargraph.select(".bar")
+//         .data(state.bargraph)
+//         .enter().append("rect")
+//         .attr("class", "bar")
+//         .attr("x", d => xScale(d.Organizations))
+//         .attr("y", d => yScale(d.Attacks_Done))
+//         .attr("width", xScale.bandwidth())
+//         .attr("height", d => (height_1) - yScale(d.Attacks_Done) )
+//         .attr("fill", "blue")
+//     bargraph.append('g')
+//         .call( xAxis )
+//         .attr('class', 'x-axis')
+//         .style("transform", `translate(0px,${height_1 - margin_1}px)`)
+//         // .attr("dx", "2em")
         
-    bargraph.append('g')
-        .call(yAxis)
-        .attr('class', 'y-axis')
-        .style("transform", `translate(${margin_1}px,0px)`)
+//     bargraph.append('g')
+//         .call(yAxis)
+//         .attr('class', 'y-axis')
+//         .style("transform", `translate(${margin_1}px,0px)`)
         
     /* needs an Update clauser to prevent mulitple's from being used */
 }
 
 
 
-/** 
- * Creating New BarChart Which shows the Groups involved in the specific attacks
- */
-
-// let svg2, xScale, yScale, XAxis, xAxisGroup, yAxisGroup, yAxis, colorScale2
-// let states = {
-//     data: [],
-//     selected_state : []
-// }
-
-// d3.csv("../Project/Data/UnitedStatesTerrorism.csv", d3.autoType.then(raw_data =>{
-//     state.data = raw_data;
-//     console.log('state:>>', state);
-
-// })
