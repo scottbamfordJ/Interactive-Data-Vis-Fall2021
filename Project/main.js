@@ -101,24 +101,6 @@ usSates.on("click", (ev, d) => {
     state.bargraph = d3.rollup(state.click_info, v => v.length, d => d.gname)
     state.bargraph.Attacks_Done = Array.from(state.bargraph.values())
     state.bargraph.Organizations = Array.from(state.bargraph.keys())
-
-    /* Making Scales and Axis */
-
-    xScale = d3.scaleBand ()
-        .domain(state.bargraph.Organizations)
-        .range([margin_1, width_1 - margin_1])
-        .padding(0.1)
-    yScale = d3.scaleBand()
-        .domain([0, d3.max(state.bargraph, d => d.Attacks_Done)])
-        // console.log(d3.max(state.bargraph.X))
-        .range([height_1 - margin_1, margin_1])
-        
-    xAxis = d3.axisBottom(xScale)
-      // .tickSizeOuter(10)
-      .scale(xScale)
-    yAxis = d3.axisLeft(yScale)
-      // .ticks(10, ",f")
-      .scale(yScale)
     draw2();
    
 })
@@ -160,6 +142,22 @@ function draw() {
         
 }   
 function draw2() {
+
+    /* Making Scales and Axis */
+    xScale = d3.scaleBand ()
+        .domain(state.bargraph.Organizations)
+        .range([margin_1, width_1 - margin_1])
+        .padding(0.1)
+    yScale = d3.scaleLinear()
+        .domain([0, d3.max(state.bargraph.Attacks_Done)])
+        // console.log(d3.max(state.bargraph.X))
+        .range([height_1 - margin_1, margin_1])   
+    xAxis = d3.axisBottom(xScale)
+      // .tickSizeOuter(10)
+      .scale(xScale)
+    yAxis = d3.axisLeft(yScale)
+      // .ticks(10, ",f")
+      .scale(yScale)
     console.log(state.bargraph)
     console.log(state.bargraph.Organizations)
     console.log(state.bargraph.Attacks_Done)
@@ -175,13 +173,12 @@ function draw2() {
         .enter().append("rect")
         .attr("class", "bar")
         .attr("x", d => {
-          console.log(d[0])
           return xScale(d[0])
         } )
-        .attr("y", d => yScale(d.Attacks_Done))
+        .attr("y",  d => yScale(d[1]) - margin_1)
         .attr("width", xScale.bandwidth())
-        .attr("height", d => (height_1) - yScale(d.Attacks_Done) )
-        .attr("fill", "blue")
+        .attr("height", d =>  height - yScale(d[1]))
+        .attr("fill", "black")
     bargraph.append('g')
         .call( xAxis )
         .attr('class', 'x-axis')
